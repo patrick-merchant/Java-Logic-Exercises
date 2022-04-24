@@ -1,5 +1,7 @@
 package org.example.day4._4_arrays;
 
+import java.lang.reflect.Array;
+
 public class ArraysExercises {
 
     /*
@@ -13,6 +15,9 @@ public class ArraysExercises {
      */
     boolean firstLast0(int[] array) {
 
+        if (array.length > 0 && ((array[0] == 0) || (array[array.length - 1] == 0))){
+            return true;
+        }
         return false;
     }
 
@@ -26,7 +31,7 @@ public class ArraysExercises {
         middleInts([7, 7, 7], [44, 17, 56]          -> [7, 17]
      */
     int[] middleInts(int[] a, int[] b) {
-        return new int[]{};
+        return new int[]{a[1], b[1]};
     }
 
 
@@ -39,8 +44,12 @@ public class ArraysExercises {
      */
 
     String[] reverse(String[] baseArray) {
+        String[] reversedArray = new String[baseArray.length];
+        for (int i=0; i < baseArray.length; i++) {
+            reversedArray[i] = baseArray[baseArray.length - i - 1];
+        }
 
-        return new String[]{};
+        return reversedArray;
     }
 
     /*
@@ -54,8 +63,11 @@ public class ArraysExercises {
         sum([])           -> 0
      */
     int sum(int[] nums) {
-
-        return 0;
+        int sum = 0;
+        for (int num: nums) {
+            sum += num;
+        }
+        return sum;
     }
 
     /*
@@ -71,7 +83,20 @@ public class ArraysExercises {
         isBalanced([2, 3, 4, 1, 2]]) -> false
      */
     boolean isBalanced(int[] array) {
+        int leftSum = 0;
+        int rightSum = 0;
 
+        for (int x : array){
+            rightSum += x;
+        }
+
+        for (int x : array){
+            leftSum += x;
+            rightSum -= x;
+            if (leftSum == rightSum){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -86,8 +111,14 @@ public class ArraysExercises {
         diff([-5, 3, 9])       ->14
      */
     int diff(int[] array) {
+        int maxValue = array[0];
+        int minValue = array[0];
 
-        return 0;
+        for (int y : array){
+            maxValue = Math.max(maxValue, y);
+            minValue = Math.min(minValue, y);
+        }
+        return maxValue - minValue;
     }
 
     /*
@@ -102,8 +133,17 @@ public class ArraysExercises {
         countGroups([5, 3, 6, 2, 4])    -> 0
      */
     int countGroups(int[] array) {
-
-        return 0;
+        boolean match = false;
+        int counter = 0;
+        for(int i = 0; i < array.length-1; i++){
+          if(array[i] == array[i+1] && !match){
+              match = true;
+              counter++;
+          } else if(array[i] != array[i+1]){
+              match = false;
+          }
+      }
+        return counter;
     }
 
     /*
@@ -117,7 +157,22 @@ public class ArraysExercises {
         innerInside([], [5])                    -> false
      */
     boolean innerInside(int[] outer, int[] inner) {
-
+        boolean match;
+        for (int i : inner){
+            match = false;
+            for (int j : outer){
+                if(i == j){
+                    match = true;
+                    break;
+                }
+            }
+            if (match){
+                continue;
+            }
+            return false;
+        }
         return true;
     }
+
+
 }
